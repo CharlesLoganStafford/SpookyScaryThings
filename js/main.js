@@ -1,3 +1,7 @@
+/**
+ * Added a comment.
+ */
+
 var AM = new AssetManager();
 
 AM.queueDownload("./img/background.png");
