@@ -31,3 +31,7 @@ function flip(image, context, flipH, flipV)
     context.drawImage(image, posX, posY, width, height);	// draw the image
     context.restore();										// restore the last saved state
 }
+
+function randomIntFromRange(min,max) {
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
