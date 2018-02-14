@@ -49,5 +49,5 @@ Ghost.prototype.draw = function()
 }
 
 Ghost.prototype.collide = function(other) {
-	return distance(this, other) < 80;
+	return distance(this, other) < 60;
 }
