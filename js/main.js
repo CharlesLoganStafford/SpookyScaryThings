@@ -22,7 +22,7 @@ AM.downloadAll(function () {
     
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background.png")));  
     
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < 10; i++) {
 		gameEngine.addEntity(new Ghost(gameEngine, AM.getAsset("./img/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), 
 				randomIntFromRange(0, canvas.height - 81.75), randomIntFromRange(-3, 3), randomIntFromRange(-2, 2)));
     }
