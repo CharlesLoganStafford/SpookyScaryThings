@@ -5,15 +5,20 @@
  * Author: Logan Stafford
  * Date: Feb 2018
  */
-function Ghost(game, spritesheets, x, y, dx, dy) {
+function Ghost(game, spritesheets, x, y) {
 	this.animation = new Animation(spritesheets, 163.5, 177, 2, 0.25, 2, true, .4);
     this.x = x;
     this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    this.velocity = {
+    		x: (Math.random() - 0.5 * 5), 
+    		y: (Math.random() - 0.5 * 5)
+    };
+    this.mass = 1;
+    this.music = [];
 	this.ctx = game.ctx;
 	this.grav = 0.1;
 	this.fric = 0.9;
+	this.addMusic("./sound/pop.mp3");
 	Entity.call(this, game, x, y);
 }
 
@@ -25,25 +30,27 @@ Ghost.prototype.update = function() {
 	for (var i = 0; i < this.game.entities.length; i++) {
 		var entity = this.game.entities[i];
 		if (entity !== this && this.collide(entity)) {
-			this.dy = -this.dy * this.fric;
-			this.dx = -this.dx * this.fric;
+			resolveCollision(this, entity);
+			this.getMusic('./sound/pop.mp3').play();
 		}
 	}
 	
 	/** Adjusting "wall" collision bounds for the y-coordinate. */
-	if (this.y + this.dy + 72 > 768) {
-		this.dy = -this.dy * this.fric;
+	if (this.y + this.velocity.y + 72 > 768) {
+		this.velocity.y = -this.velocity.y * this.fric;
+		this.getMusic('./sound/pop.mp3').play();
 	} else {
-		this.dy += this.grav;
+		this.velocity.y += this.grav;
 	}
 	
 	/** Adjusting "wall" collision bounds for the x-coordinate. */
 	if (this.x + 72 >= 1024 || this.x <= 0) {
-		this.dx = -this.dx * this.fric;
+		this.velocity.x = -this.velocity.x * this.fric;
+		this.getMusic('./sound/pop.mp3').play();
 	}
 	
-	this.x += this.dx;
-	this.y += this.dy;
+	this.x += this.velocity.x;
+	this.y += this.velocity.y;
 	
 	Entity.prototype.update.call(this);
 }
@@ -55,4 +62,16 @@ Ghost.prototype.draw = function() {
 
 Ghost.prototype.collide = function(other) {
 	return distance(this, other) < 60;
+}
+
+Ghost.prototype.addMusic = function(path) {
+	var sound = new Audio();
+	sound.addEventListener("canplay", null);
+	sound.addEventListener("error", null);
+	sound.src = path;
+	this.music[path] = sound;
+}
+
+Ghost.prototype.getMusic = function(path) {
+	return this.music[path];
 }
