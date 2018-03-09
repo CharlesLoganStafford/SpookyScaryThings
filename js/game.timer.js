@@ -1,6 +1,7 @@
 /**
- * The class manages running
- * time of the canvas
+ * The class manages running time of the canvas.
+ * 
+ * 
  */
 function Timer() 
 {
