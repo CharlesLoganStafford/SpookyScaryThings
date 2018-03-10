@@ -14,14 +14,30 @@ function GameEngine() {
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+    this.isPaused = true;
+	this.play = null;
+	this.pause = null;
+	this.load = null;
+	this.save = null;
+	this.heads = [];
 }
 
-GameEngine.prototype.init = function (ctx) {
+GameEngine.prototype.init = function (ctx, play, pause, load, save) {
+	
+	this.socket = io.connect("http://24.16.255.56:8888");
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
     this.timer = new Timer();
     console.log('game initialized');
+    this.play = play;
+	this.pause = pause;
+	this.load = load;
+	this.save = save;
+	this.startInput();
+	this.socket.on("connect", function () {
+		console.log("Socket connected.")
+	});
 }
 
 GameEngine.prototype.start = function () {
@@ -58,60 +74,55 @@ GameEngine.prototype.update = function () {
 }
 
 GameEngine.prototype.loop = function () {
-    this.clockTick = this.timer.tick();
-    this.update();
-    this.draw();
-}
-
-function Timer() {
-    this.gameTime = 0;
-    this.maxStep = 0.05;
-    this.wallLastTimestamp = 0;
-}
-
-Timer.prototype.tick = function () {
-    var wallCurrent = Date.now();
-    var wallDelta = (wallCurrent - this.wallLastTimestamp) / 1000;
-    this.wallLastTimestamp = wallCurrent;
-
-    var gameDelta = Math.min(wallDelta, this.maxStep);
-    this.gameTime += gameDelta;
-    return gameDelta;
-}
-
-function Entity(game, x, y) {
-    this.game = game;
-    this.x = x;
-    this.y = y;
-    this.removeFromWorld = false;
-}
-
-Entity.prototype.update = function () {
-}
-
-Entity.prototype.draw = function (ctx) {
-    if (this.game.showOutlines && this.radius) {
-        this.game.ctx.beginPath();
-        this.game.ctx.strokeStyle = "green";
-        this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        this.game.ctx.stroke();
-        this.game.ctx.closePath();
+    if (!this.isPaused) {
+    	this.clockTick = this.timer.tick();
+    	this.update();
+        this.draw();
     }
 }
 
-Entity.prototype.rotateAndCache = function (image, angle) {
-    var offscreenCanvas = document.createElement('canvas');
-    var size = Math.max(image.width, image.height);
-    offscreenCanvas.width = size;
-    offscreenCanvas.height = size;
-    var offscreenCtx = offscreenCanvas.getContext('2d');
-    offscreenCtx.save();
-    offscreenCtx.translate(size / 2, size / 2);
-    offscreenCtx.rotate(angle);
-    offscreenCtx.translate(0, 0);
-    offscreenCtx.drawImage(image, -(image.width / 2), -(image.height / 2));
-    offscreenCtx.restore();
-    //offscreenCtx.strokeStyle = "red";
-    //offscreenCtx.strokeRect(0,0,size,size);
-    return offscreenCanvas;
+GameEngine.prototype.pauseGame = function() {
+	console.log("pausing game");
+	this.isPaused = true;
+}
+
+GameEngine.prototype.resumeGame = function() {
+	console.log("resuming game");
+	this.isPaused = false;
+}
+
+GameEngine.prototype.startInput = function () {
+    console.log('Starting input');
+
+    var that = this;
+
+    // event listeners are added here
+
+	this.play.addEventListener("click", function (e) {
+		that.resumeGame();
+    }, false);
+	
+	this.pause.addEventListener("click", function (e) {
+		that.pauseGame();
+    }, false);
+	
+	this.load.addEventListener("click", function (e) {
+		that.socket.emit('load', { studentname: "Logan Stafford", statename: "save"});
+    }, false);
+	
+
+    console.log('Input started');
+}
+
+GameEngine.prototype.setHeads = function(heads) {
+	this.heads = [];
+	for (var i = 0; i < 10; i++) {
+		this.heads.push(this.entities[i]);
+
+	}
+	this.draw();
+}
+
+GameEngine.prototype.saveGame = function() {
+	this.socket.emit('save', { studentname: "Logan Stafford", statename: "save", state: this.heads });
 }

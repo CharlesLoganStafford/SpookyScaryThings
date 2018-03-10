@@ -31,15 +31,17 @@ AM.downloadAll(function () {
 
 	/** Initializing game engine for use.  */
     var gameEngine = new GameEngine();
-    gameEngine.init(ctx);
+    gameEngine.init(ctx, playButton, pauseButton, loadButton, saveButton);
     gameEngine.start();    
     
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background.png")));  
     
     /** Adding 15  ghosts onto the webpage, all on random areas of the canvas. */
     for (i = 0; i < 10; i++) {
-		gameEngine.addEntity(new Ghost(gameEngine, AM.getAsset("./img/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), 
-				randomIntFromRange(0, canvas.height - 81.75)));
+		var ghost = new Ghost(gameEngine, AM.getAsset("./img/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), 
+				randomIntFromRange(0, canvas.height - 81.75));
+		gameEngine.addEntity(ghost);
+		gameEngine.heads.push(ghost);
     }
     
     /** Play the background music, continuously looping. */
@@ -48,17 +50,18 @@ AM.downloadAll(function () {
     theme.play();   
     
     saveButton.addEventListener("click", function (e) {
-		gameEngine.setSquares(squares);
+		gameEngine.setHeads(gameEngine.heads);
 		gameEngine.saveGame();
     }, false);
 	
 	gameEngine.socket.on("load", function(e) {
 		console.log(e.state);
-		for (var i = 0; i < 62; i++) {
-			for (var j = 0; j < 82; j++) {
-				squares[i][j].level = e.state[i][j];
-			}
+		for (var i = 0; i < 10; i++) {
+			this.entities[i].x = e.state.heads[i].x;
+			this.entities[i].y = e.state.heads[i].y;
+			this.entities[i].velocity.x = e.state.heads[i].velocity.x;
+			this.entities[i].velocity.y = e.state.heads[i].velocity.y;
 		}
-		gameEngine.setSquares(squares);
+		gameEngine.setHeads(heads);
 	});
 });
