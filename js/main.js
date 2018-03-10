@@ -23,6 +23,11 @@ AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
 	ctx.fillStyle = "white";
+	
+	var playButton = document.getElementById("play");
+	var pauseButton = document.getElementById("pause");
+	var loadButton = document.getElementById("load");
+	var saveButton = document.getElementById("save");	
 
 	/** Initializing game engine for use.  */
     var gameEngine = new GameEngine();
@@ -41,4 +46,19 @@ AM.downloadAll(function () {
     var theme = AM.getMusic("./sound/bgmusic.mp3");
     theme.loop = true;
     theme.play();   
+    
+    saveButton.addEventListener("click", function (e) {
+		gameEngine.setSquares(squares);
+		gameEngine.saveGame();
+    }, false);
+	
+	gameEngine.socket.on("load", function(e) {
+		console.log(e.state);
+		for (var i = 0; i < 62; i++) {
+			for (var j = 0; j < 82; j++) {
+				squares[i][j].level = e.state[i][j];
+			}
+		}
+		gameEngine.setSquares(squares);
+	});
 });
