@@ -1,9 +1,5 @@
 /**
  * The method returns the distance between two points.
- * 
- * @param point1 the first point
- * @param point2 the second point
- * @returns the distance between two points
  */
 function distance(point1, point2) {
     var dx = point1.x - point2.x;
@@ -13,11 +9,6 @@ function distance(point1, point2) {
 
 /**
  * The method flips the image.
- * 
- * @param image the image
- * @param context the context
- * @param flipH true to flip horizontally otherwise false
- * @param flipV true to flip vertically otherwise false
  */
 function flip(image, context, flipH, flipV) {
 	var scaleH = flipH ? -1 : 1;		    // set horizontal scale to -1 if flip horizontal
@@ -40,9 +31,6 @@ function randomIntFromRange(min,max) {
  *
  * Takes velocities and alters them as if the coordinate system they're on was rotated
  *
- * @param  Object | velocity | The velocity of an individual particle
- * @param  Float  | angle    | The angle of collision between two objects in radians
- * @return Object | The altered x and y velocities after the coordinate system has been rotated
  */
 
 function rotate(velocity, angle) {
@@ -58,9 +46,6 @@ function rotate(velocity, angle) {
  * Swaps out two colliding particles' x and y velocities after running through
  * an elastic collision reaction equation
  *
- * @param  Object | particle      | A particle object with x and y coordinates, plus velocity
- * @param  Object | otherParticle | A particle object with x and y coordinates, plus velocity
- * @return Null | Does not return a value
  */
 
 function resolveCollision(particle, otherParticle) {

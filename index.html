@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> SpookyScaryThings | Logan Stafford </title>		
-			<script type="text/javascript" src="http://24.16.255.56:8888/socket.io/socket.io.js"></script>
+		<title> SpookyScaryThings | Logan Stafford </title>			
 			<script type="text/javascript" src="./js/game.engine.js"></script>
 			<script type="text/javascript" src="./js/game.timer.js"></script>
 			<script type="text/javascript" src="./js/asset.manager.js"></script>
@@ -18,13 +17,23 @@
     	body {
     		background-color: black;
     	}
+		
+		p { 
+			text-align:center; 
+			font-size:11px;
+			font-family:arial;
+		}
     </style>
 
 	<body>
 		<canvas id="gameWorld" width="1024" height="768"></canvas> <br>
-		<button id="play">Play</button>	<br>
-		<button id="pause">Pause</button> <br>
-		<button id="load">Load</button>	<br>
-		<button id="save">Save</button>
+		<p>
+			<font color="white">
+				By Logan Stafford. <br>
+				Sprites found on <a href="http://opengameart.org">OpenGameArt</a>; created by <a href="http://bevouliin.com">Bevouliin</a>. <br>
+				Background music originally composed by Koji Kondo and published by Nintendo (1998). <br>
+				Extended version found on YouTube from <a href="https://www.youtube.com/channel/UCN2hyYKiVMH4Ka-TCuO_obw">BrawlBRSTMs3X</a>. <br>
+			</font>
+		</p>
 	</body>
 </html>
