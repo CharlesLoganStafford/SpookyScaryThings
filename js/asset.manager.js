@@ -1,8 +1,5 @@
 /** 
  * The AssetManager.js file. This class manages the art and sound assets of the game.
- * 
- * Author(s): Varik Hoang, Peter Bae, Cuong Tran, Logan Stafford
- * TCSS491 - Winter 2018
  */
 function AssetManager() {
     this.successCount = 0;
@@ -12,8 +9,7 @@ function AssetManager() {
     this.downloadQueue = [];
 
     /**
-     * The method puts all
-     * paths in queue to download
+     * The method puts all paths in queue to download
      */
     this.queueDownload = function (path) {
         console.log("Queueing " + path);
@@ -21,18 +17,14 @@ function AssetManager() {
     }
     
     /**
-     * The method indicates if
-     * the downloading is complete.
-     * 
-     * @return True if done, otherwise false.
+     * The method indicates if the downloading is complete. 
      */
     this.isDone = function () {
         return this.downloadQueue.length === this.successCount + this.errorCount;
     }
     
     /**
-     * The method starts downloading
-     * images from the queue.
+     * The method starts downloading images from the queue.
      */
     this.downloadAll = function (callback) {
         for (var i = 0; i < this.downloadQueue.length; i++) {
@@ -60,10 +52,8 @@ function AssetManager() {
     }
     
     /**
-     * The method pulls up the image
-     * from client cache for use 
-     * after finishing the download
-     * @return the sprite (animations)
+     * The method pulls up the image from the client cache for use 
+     * after finishing the download.
      */
     this.getAsset = function (path) {
         return this.cache[path];
