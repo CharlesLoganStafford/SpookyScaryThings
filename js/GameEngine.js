@@ -25,14 +25,16 @@ GameEngine.prototype.init = function (ctx) {
 }
 
 GameEngine.prototype.start = function () {
+    console.log("Starting game engine...");
+
     var that = this;
 	
     (function gameLoop() {
         that.loop();
         requestAnimFrame(gameLoop, that.ctx.canvas);
     })();
-	
-	console.log("Starting game.");
+
+    console.log("Game engine started.");
 }
 
 GameEngine.prototype.addEntity = function (entity) {
