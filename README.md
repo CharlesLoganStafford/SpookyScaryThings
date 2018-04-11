@@ -15,5 +15,4 @@ A lot of the physics logic came from an excellent Javascript tutorial that can b
 ** Please note that I consider this a "pet project" of mine and may continually edit the code for the sake of efficiency and minimalism, but overall functionally should not change. **
 
 Thanks!
-
 Logan Stafford
