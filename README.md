@@ -12,7 +12,7 @@ This was my first foray into learning JavaScript (coming from a Java and C backg
 
 A lot of the physics logic came from an excellent Javascript tutorial that can be found on YouTube created by ChrisCourses, which is an excellent resource for novice programmers. The credits for the pages resources can be found on the page itself. If you stumbled upon this project of mine and are new to coding, I've found in my experience that his tutorials have been very helpful in the past as a smaller, supplemental addition to my education in CS.
 
-** Please note that I consider this a "pet project" of mine and may continually edit the code for the sake of efficiency and minimalism, but overall functionally should not change. **
+** Please note that I consider this a "pet project" and may continually edit the code for the sake of new features, efficiency and minimalism, but overall functionally should not change. **
 
 Thanks!
 Logan Stafford

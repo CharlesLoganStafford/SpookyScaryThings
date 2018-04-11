@@ -18,7 +18,7 @@ function Ghost(game, spritesheets, x, y) {
 	this.ctx = game.ctx;
 	this.grav = 0.1;
 	this.fric = 0.9;
-	this.addMusic("./sound/pop.mp3");
+	this.addMusic("./media/pop.mp3");
 	Entity.call(this, game, x, y);
 }
 
@@ -31,14 +31,14 @@ Ghost.prototype.update = function() {
 		var entity = this.game.entities[i];
 		if (entity !== this && this.collide(entity)) {
 			resolveCollision(this, entity);
-			this.getMusic('./sound/pop.mp3').play();
+			this.getMusic('./media/pop.mp3').play();
 		}
 	}
 	
 	/** Adjusting "wall" collision bounds for the y-coordinate. */
 	if (this.y + this.velocity.y + 72 > 768) {
 		this.velocity.y = -this.velocity.y * this.fric;
-		this.getMusic('./sound/pop.mp3').play();
+		this.getMusic('./media/pop.mp3').play();
 	} else {
 		this.velocity.y += this.grav;
 	}
@@ -46,7 +46,7 @@ Ghost.prototype.update = function() {
 	/** Adjusting "wall" collision bounds for the x-coordinate. */
 	if (this.x + 72 >= 1024 || this.x <= 0) {
 		this.velocity.x = -this.velocity.x * this.fric;
-		this.getMusic('./sound/pop.mp3').play();
+		this.getMusic('./media/pop.mp3').play();
 	}
 	
 	this.x += this.velocity.x;
