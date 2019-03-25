@@ -1,6 +1,6 @@
 # SpookyScaryThings
 
-https://loganator456.github.io/SpookyScaryThings/
+https://charlesloganstafford.github.io/SpookyScaryThings/
 
 A JavaScript webpage testing game engine, physics, animations, and sounds. On my page fifteen spooky and scary ghosts spawn at random points on the background and then are allowed to freefall and bounce off each other over some creepy music and some rather loud "bump" effects.
 
