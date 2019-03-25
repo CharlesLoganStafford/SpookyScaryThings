@@ -14,20 +14,26 @@ function GameEngine() {
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+    this.musicPlaying = false;
 }
 
 GameEngine.prototype.init = function (ctx) {	
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
+    /** Play the background music, continuously looping. */
+    this.theme = AM.getMusic("./media/bgmusic.mp3");
+    this.theme.loop = true;
+    this.theme.play();
+    this.musicPlaying = true;
     this.timer = new Timer();
     console.log('Game initialized.');
 }
 
 GameEngine.prototype.start = function () {
     console.log("Starting game engine...");
-
     var that = this;
+    this.theme.play();
 	
     (function gameLoop() {
         that.loop();

@@ -22,7 +22,7 @@ AM.downloadAll(function () {
 	/** Setting canvas and context settings.*/
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
-	ctx.fillStyle = "white";
+	  ctx.fillStyle = "white";
 
 	/** Initializing game engine for use.  */
     var gameEngine = new GameEngine();
@@ -31,13 +31,13 @@ AM.downloadAll(function () {
     
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./media/background.png")));  
     
-    /** Adding 15  ghosts onto the webpage, all on random areas of the canvas. */
-    for (i = 0; i < 10; i++) {
-		gameEngine.addEntity(new Ghost(gameEngine, AM.getAsset("./media/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), randomIntFromRange(0, canvas.height - 81.75)));		
+    /** Adding 5 ghosts onto the webpage, all on random areas of the canvas. */
+    for (i = 0; i < 5; i++) {
+		    gameEngine.addEntity(new Ghost(gameEngine, AM.getAsset("./media/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), randomIntFromRange(0, canvas.height - 81.75)));		
     }
     
     /** Play the background music, continuously looping. */
     var theme = AM.getMusic("./media/bgmusic.mp3");
     theme.loop = true;
-    theme.play();   	
+    theme.play();
 });
