@@ -7,37 +7,36 @@
  */
 
 /** Initializing asset manager for use.*/
-var AM = new AssetManager();
+var AssetManager = new AssetManager();
 
 /** Queueing download of all sound assets. */
-AM.addMusic("./media/bgmusic.mp3");
+AssetManager.addMusic("./media/bgmusic.mp3");
 
 /** Queueing download of all art assets. */
-AM.queueDownload("./media/background.png");
-AM.queueDownload("./media/idle.png");
+AssetManager.queueDownload("./media/background.png");
+AssetManager.queueDownload("./media/idle.png");
 
 /** The main executable portion of the file. */
-AM.downloadAll(function () {
+AssetManager.downloadAll(function () {
 	
 	/** Setting canvas and context settings.*/
     var canvas = document.getElementById("gameWorld");
-    var ctx = canvas.getContext("2d");
-	  ctx.fillStyle = "white";
+    var context = canvas.getContext("2d");
+	  context.fillStyle = "white";
 
 	/** Initializing game engine for use.  */
     var gameEngine = new GameEngine();
-    gameEngine.init(ctx);
+    gameEngine.init(context);
     gameEngine.start();    
-    
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./media/background.png")));  
+    gameEngine.addEntity(new Background(gameEngine, AssetManager.getAsset("./media/background.png")));  
     
     /** Adding 5 ghosts onto the webpage, all on random areas of the canvas. */
     for (i = 0; i < 5; i++) {
-		    gameEngine.addEntity(new Ghost(gameEngine, AM.getAsset("./media/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), randomIntFromRange(0, canvas.height - 81.75)));		
+		    gameEngine.addEntity(new Ghost(gameEngine, AssetManager.getAsset("./media/idle.png"), randomIntFromRange(88.5, canvas.width - 88.5), randomIntFromRange(0, canvas.height - 81.75)));		
     }
     
     /** Play the background music, continuously looping. */
-    var theme = AM.getMusic("./media/bgmusic.mp3");
+    var theme = AssetManager.getMusic("./media/bgmusic.mp3");
     theme.loop = true;
     theme.play();
 });
